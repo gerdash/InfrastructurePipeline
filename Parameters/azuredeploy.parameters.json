@@ -2,14 +2,12 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "dnsLabelPrefix": {
-      "value": "pipelinevm01"
+    "Prefix": {
+      "value": "PipelineTest"
     },
-    "vmName": {
-      "value": "pipelinevm01"
-    },
+
     "adminUsername": {
-      "value": "pipelinevm01"
+      "value": "PipelineAdmin"
     },
     "adminPassword": {
       "value": "3zr2WQigCi3t"
