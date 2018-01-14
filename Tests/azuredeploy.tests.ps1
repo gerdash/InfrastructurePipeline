@@ -59,10 +59,10 @@ Describe "Template: $template" -Tags Unit {
             'Microsoft.Network/publicIPAddresses',
             'Microsoft.Network/loadBalancers',
             'Microsoft.Network/networkInterfaces',
-            'Microsoft.Compute/virtualMachines'
+            'Microsoft.Compute/virtualMachines' | Sort-Object 
 
             $templateResources = (get-content "$templatesFolder\azuredeploy.json" | ConvertFrom-Json -ErrorAction SilentlyContinue).Resources.type
-            $templateResources | Should Be $expectedResources
+            $templateResources | Sort-Object | Should Be $expectedResources 
         }
         
 
