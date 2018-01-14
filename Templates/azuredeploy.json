@@ -40,7 +40,7 @@
     "imageOffer": "WindowsServer",
     "imageSku": "2012-R2-Datacenter",
     "apiVersion": "2015-06-15",
-    "virtualMachineName":"[concat(parameters('prefix'),'-vm1')]"
+    "virtualMachineName":"[concat(parameters('prefix'),'-vm')]"
   },
   "resources": [
     {
