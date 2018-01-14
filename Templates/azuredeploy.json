@@ -51,7 +51,7 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[variables('virtualMachineName')]"
+          "domainNameLabel": "[toLower(variables('virtualMachineName'))]"
         }
       }
     },
