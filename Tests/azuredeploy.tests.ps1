@@ -48,9 +48,9 @@ Describe "Template: $template" -Tags Unit {
             'parameters',
             'variables',
             'resources',                                
-            'outputs'
+            'outputs' | Sort-Object 
             $templateProperties = (get-content "$templatesFolder\azuredeploy.json" | ConvertFrom-Json -ErrorAction SilentlyContinue) | Get-Member -MemberType NoteProperty | % Name
-            $templateProperties | Should Be $expectedProperties
+            $templateProperties | Sort-Object | Should Be $expectedProperties
         }
         
         It "Creates the expected Azure resources" {
