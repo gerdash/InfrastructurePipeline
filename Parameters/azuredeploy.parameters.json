@@ -1,0 +1,21 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dnsLabelPrefix": {
+      "value": "pipelinevm01"
+    },
+    "vmName": {
+      "value": "pipelinevm01"
+    },
+    "adminUsername": {
+      "value": "pipelinevm01"
+    },
+    "adminPassword": {
+      "value": "3zr2WQigCi3t"
+    },
+    "rdpPort": {
+      "value": 50001
+    }
+  }
+}
