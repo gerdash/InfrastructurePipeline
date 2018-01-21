@@ -34,7 +34,7 @@ Describe "Networking Tests" -tag "AzureInfrastructure" {
 
 Describe "Virtual Machine Tests" -tag "AzureInfrastructure"{
     context "VM Tests"{
-        $vmName="$resourceGroup-vm1"
+        $vmName="$resourceGroup-vm"
         $vm= Get-AzureRmVM -Name $vmName -ResourceGroupName $resourceGroup
     
         it "Virtual Machine $vmName Should Exist" {
