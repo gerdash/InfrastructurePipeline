@@ -23,9 +23,9 @@ Describe "Networking Tests" -tag "AzureInfrastructure" {
             $subnet| Should Not be $null
         }
         
-        it "Subnet $resourceGroup-subnet1 Should have Address Range 10.2.0.0/24" {
+        it "Subnet $resourceGroup-subnet1 Should have Address Range 10.0.0.0/24" {
             $subnet = Get-AzureRmVirtualNetworkSubnetConfig -Name "$resourceGroup-subnet1" -VirtualNetwork $vNet -ErrorAction SilentlyContinue
-            $subnet.AddressPrefix | Should be "10.2.0.0/24"
+            $subnet.AddressPrefix | Should be "10.0.0.0/24"
         }
          
     }
