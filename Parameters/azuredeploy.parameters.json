@@ -2,18 +2,12 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "Prefix": {
-      "value": "PipelineTest"
+    "storageAccountName": {
+      "value": "scpipelinedemo"
     },
 
-    "adminUsername": {
-      "value": "PipelineAdmin"
-    },
-    "adminPassword": {
-      "value": "3zr2WQigCi3t"
-    },
-    "rdpPort": {
-      "value": 50001
+    "storageAccountType": {
+      "value": "Standard_LRS"
     }
   }
 }
