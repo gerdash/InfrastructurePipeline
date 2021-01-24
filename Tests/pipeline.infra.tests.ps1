@@ -10,45 +10,14 @@ Describe "Resource Group tests" -tag "AzureInfrastructure" {
     }
 }
 
-Describe "Networking Tests" -tag "AzureInfrastructure" {
-    Context "Networking" {
-        $vNet=Get-AzureRmVirtualNetwork -Name "$resourceGroup-vNet" -ResourceGroupName $resourceGroup -ErrorAction SilentlyContinue
-
-        it "Check Virtual Network $resourceGroup-vNet Exists" {
-            $vNet | Should Not be $null
-        }
-            
-        it "Subnet $resourceGroup-subnet1 Should Exist" {
-            $subnet = Get-AzureRmVirtualNetworkSubnetConfig -Name "$resourceGroup-subnet1" -VirtualNetwork $vNet -ErrorAction SilentlyContinue
-            $subnet| Should Not be $null
-        }
+Describe "Storage Tests" -tag "AzureInfrastructure" {
+    Context "Storage" {
         
-        it "Subnet $resourceGroup-subnet1 Should have Address Range 10.0.0.0/24" {
-            $subnet = Get-AzureRmVirtualNetworkSubnetConfig -Name "$resourceGroup-subnet1" -VirtualNetwork $vNet -ErrorAction SilentlyContinue
-            $subnet.AddressPrefix | Should be "10.0.0.0/24"
+        $sa = Get-AzStorageAccount -Name "scpipelinedemo" -ResourceGroupName $resourceGroup -ErrorAction SilentlyContinue
+        it "Check Storage Account Exists" {
+            $sa | Should Not be $null
         }
          
     }
 }
 
-
-Describe "Virtual Machine Tests" -tag "AzureInfrastructure"{
-    context "VM Tests"{
-        $vmName="$resourceGroup-vm"
-        $vm= Get-AzureRmVM -Name $vmName -ResourceGroupName $resourceGroup
-    
-        it "Virtual Machine $vmName Should Exist" {
-            $vm| Should Not be $null
-        }
-
-        it "Virtual Machine $vmName Should Be Size Standard_DS1_v2" {
-            $vm.HardwareProfile.VmSize | should be "Standard_DS1_v2"
-        }
-
-        it "Virtual Machine $vmName Should Be Located in West Europe" {
-            $vm.Location | should be "westeurope"
-        }
-
-    }
-           
-}

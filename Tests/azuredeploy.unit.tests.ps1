@@ -54,18 +54,12 @@ Describe "Template: $template" -Tags Unit {
         }
         
         It "Creates the expected Azure resources" {
-            $expectedResources = 'Microsoft.Storage/storageAccounts',
-            'Microsoft.Network/virtualNetworks',
-            'Microsoft.Network/publicIPAddresses',
-            'Microsoft.Network/loadBalancers',
-            'Microsoft.Network/networkInterfaces',
-            'Microsoft.Compute/virtualMachines' | Sort-Object 
+            $expectedResources = 'Microsoft.Storage/storageAccounts' | Sort-Object 
 
             $templateResources = (get-content "$templatesFolder\azuredeploy.json" | ConvertFrom-Json -ErrorAction SilentlyContinue).Resources.type
             $templateResources | Sort-Object | Should Be $expectedResources 
         }
-        
-
+       
 
     }
     
