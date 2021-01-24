@@ -48,7 +48,8 @@ Describe "Template: $template" -Tags Unit {
             'contentVersion',
             'parameters',
             'variables',
-            'resources',                                
+            'resources',   
+            'functions',                             
             'outputs' | Sort-Object 
             $templateProperties = (get-content "$templatesFolder\azuredeploy.json" | ConvertFrom-Json -ErrorAction SilentlyContinue) | Get-Member -MemberType NoteProperty | % Name
             $templateProperties | Sort-Object | Should -Be $expectedProperties
