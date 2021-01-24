@@ -24,7 +24,7 @@ Write-host "rg:$TempValidationRG"
 
 Describe "Template: $template" -Tags Unit {
      BeforeAll {
-         New-AzResourceGroup -Name "Pester-Validation-RG" -Location $Location
+         New-AzResourceGroup -Name "Pester-Validation-RG" -Location "West Europe"
     }
 
     
