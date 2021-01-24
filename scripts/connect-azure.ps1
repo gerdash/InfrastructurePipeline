@@ -17,7 +17,7 @@ param (
     [string]$TenantId
 )
 
-Install-Module -Name Az.Accounts, Az.Resources -Force -SkipPublisherCheck
+Install-Module -Name Az.Accounts, Az.Resources, Az.Storage -Force -SkipPublisherCheck
 
 $password = ConvertTo-SecureString $ServicePrincipalPassword -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential ($ApplicationId, $password)
