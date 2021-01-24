@@ -24,7 +24,7 @@ Write-host "rg:$TempValidationRG"
 
 Describe "Template: $template" -Tags Unit {
      BeforeAll {
-         New-AzResourceGroup -Name $TempValidationRG -Location $Location
+         New-AzResourceGroup -Name "Pester-Validation-RG" -Location $Location
     }
 
     
@@ -75,6 +75,6 @@ Describe "Template: $template" -Tags Unit {
     }
 
      AfterAll {
-         Remove-AzResourceGroup $TempValidationRG -Force
+         Remove-AzResourceGroup "Pester-Validation-RG" -Force
      }
 }
