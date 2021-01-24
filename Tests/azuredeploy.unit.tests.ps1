@@ -24,7 +24,7 @@ $location = "West Europe"
 
 Describe "Template: $template" -Tags Unit {
      BeforeAll {
-         New-AzureRmResourceGroup -Name $TempValidationRG -Location $Location
+         New-AzResourceGroup -Name $TempValidationRG -Location $Location
     }
 
     
@@ -69,12 +69,12 @@ Describe "Template: $template" -Tags Unit {
       
             # Complete mode - will deploy everything in the template from scratch. If the resource group already contains things (or even items that are not in the template) they will be deleted first.
             # If it passes validation no output is returned, hence we test for NullOrEmpty
-            $ValidationResult = Test-AzureRmResourceGroupDeployment -ResourceGroupName $TempValidationRG -Mode Complete -TemplateFile "$templatesFolder\azuredeploy.json" -TemplateParameterFile "$parametersFolder\azuredeploy.parameters.json"
+            $ValidationResult = Test-AzResourceGroupDeployment -ResourceGroupName $TempValidationRG -Mode Complete -TemplateFile "$templatesFolder\azuredeploy.json" -TemplateParameterFile "$parametersFolder\azuredeploy.parameters.json"
             $ValidationResult | Should BeNullOrEmpty
         }
     }
 
      AfterAll {
-         Remove-AzureRmResourceGroup $TempValidationRG -Force
+         Remove-AzResourceGroup $TempValidationRG -Force
      }
 }
