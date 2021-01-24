@@ -1,6 +1,7 @@
 
 
 BeforeAll {
+    Install-Module -Name Az.Storage -Force -SkipPublisherCheck
     $resourceGroup = "PipelineTest"
 }
 
