@@ -11,7 +11,7 @@
 
 
 BeforeAll {
-    $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+    $here = $PSScriptRoot
     $template = Split-Path -Leaf $here
     
     $templatesFolder="$here\..\templates"
@@ -20,7 +20,7 @@ BeforeAll {
     $TempValidationRG = "Pester-Validation-RG"
     $location = "West Europe"
     Write-host "rg:$TempValidationRG"
-     New-AzResourceGroup -Name $TempValidationRG -Location $location
+    New-AzResourceGroup -Name $TempValidationRG -Location $location
 }
 
 
