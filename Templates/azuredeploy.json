@@ -20,6 +20,13 @@
         "Premium_LRS"
       ],
       "defaultValue": "Standard_LRS"
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "location to deploy to "
+      },
+      "defaultValue": "[resourceGroup().location]"
     }
   },
   "variables": {},
@@ -31,7 +38,7 @@
       "tags": {
         "displayName": "[parameters('storageAccountName')]"
       },
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "kind": "StorageV2",
       "sku": {
         "name": "[parameters('storageAccountType')]"
