@@ -10,23 +10,23 @@
 #>
 
 
-
+BeforeAll {
+    $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+    $template = Split-Path -Leaf $here
+    
+    $templatesFolder="$here\..\templates"
+    $parametersFolder="$here\..\parameters"
+    
+    $TempValidationRG = "Pester-Validation-RG"
+    $location = "West Europe"
+    Write-host "rg:$TempValidationRG"
+     New-AzResourceGroup -Name $TempValidationRG -Location $location
+}
 
 
 
 Describe "Template: $template" -Tags Unit {
-     BeforeAll {
-        $here = Split-Path -Parent $MyInvocation.MyCommand.Path
-        $template = Split-Path -Leaf $here
-        
-        $templatesFolder="$here\..\templates"
-        $parametersFolder="$here\..\parameters"
-        
-        $TempValidationRG = "Pester-Validation-RG"
-        $location = "West Europe"
-        Write-host "rg:$TempValidationRG"
-         New-AzResourceGroup -Name $TempValidationRG -Location $location
-    }
+
 
     
     Context "Template Syntax" {
@@ -75,7 +75,9 @@ Describe "Template: $template" -Tags Unit {
         }
     }
 
-     AfterAll {
-         Remove-AzResourceGroup $TempValidationRG -Force
-     }
+
+}
+
+AfterAll {
+    Remove-AzResourceGroup $TempValidationRG -Force
 }
