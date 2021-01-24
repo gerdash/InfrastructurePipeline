@@ -17,7 +17,7 @@ $parametersFolder="$here\..\parameters"
 
 $TempValidationRG = "Pester-Validation-RG"
 $location = "West Europe"
-
+Write-host "rg:$TempValidationRG"
 
 
 
