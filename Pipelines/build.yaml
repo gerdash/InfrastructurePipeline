@@ -1,6 +1,5 @@
 pool:
-  name: Azure Pipelines
-  demands: azureps
+  vmImage: 'windows-latest'
 
 steps:
 - task: Sam-Cogan.ARMTTKExtension.RunARMTTKTests.RunARMTTKTests@1
