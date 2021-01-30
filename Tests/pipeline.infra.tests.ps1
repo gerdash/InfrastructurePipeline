@@ -20,8 +20,10 @@ Describe "Resource Group tests" -tag "AzureInfrastructure" {
 Describe "Storage Tests" -tag "AzureInfrastructure" {
     Context "Storage" {
         
-        $sa = Get-AzStorageAccount -Name "scpipelinedemo" -ResourceGroupName $resourceGroup -ErrorAction SilentlyContinue
+        
+
         it "Check Storage Account Exists" {
+            $sa = Get-AzStorageAccount -Name "scpipelinedemo" -ResourceGroupName $resourceGroup -ErrorAction SilentlyContinue
             $sa | Should -Not -be $null
         }
          
