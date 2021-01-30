@@ -26,6 +26,7 @@ stages:
       runOnce:
         deploy:
           steps:
+            - checkout: self
             - task: AzureResourceGroupDeployment@2
               displayName: 'Deploy Azure Resources'
               inputs:
