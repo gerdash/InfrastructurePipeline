@@ -1,7 +1,7 @@
 pool:
   vmImage: 'windows-latest'
 
-
+trigger: none
 stages:
 - stage: Development
   displayName: Development
@@ -14,8 +14,8 @@ stages:
           azureSubscription: 'Azure Sponsorship'
           resourceGroupName: storage-development
           location: 'West Europe'
-          csmFile: Templates/azuredeploy.json
-          csmParametersFile: Parameters/dev-azuredeploy.parameters.json
+          csmFile: ../Templates/azuredeploy.json
+          csmParametersFile: ../Parameters/dev-azuredeploy.parameters.json
 - stage: Production
   displayName: Production
   dependsOn: Development
@@ -28,5 +28,5 @@ stages:
           azureSubscription: 'Azure Sponsorship'
           resourceGroupName: storage-production
           location: 'West Europe'
-          csmFile: Templates/azuredeploy.json
-          csmParametersFile: Parameters/prod-azuredeploy.parameters.json
+          csmFile: ../Templates/azuredeploy.json
+          csmParametersFile: ../Parameters/prod-azuredeploy.parameters.json
