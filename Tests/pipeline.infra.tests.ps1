@@ -1,10 +1,10 @@
 param(
+[Parameter(Mandatory)]
 [string] $resourceGroup
 )
 
 BeforeAll {
     Install-Module -Name Az.Storage -Force -SkipPublisherCheck
-    $resourceGroup = "PipelineTest"
 }
 
 Describe "Resource Group tests" -tag "AzureInfrastructure" {
