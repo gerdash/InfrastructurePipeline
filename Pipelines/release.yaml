@@ -19,16 +19,18 @@ stages:
 - stage: Production
   displayName: Production
   dependsOn: Development
-  environment: 'Production'
   jobs:
-    
-  - job: Release
-    steps:
-      - task: AzureResourceGroupDeployment@2
-        displayName: 'Deploy Azure Resources'
-        inputs:
-          azureSubscription: 'Azure Sponsorship'
-          resourceGroupName: storage-production
-          location: 'West Europe'
-          csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
-          csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/prod.azuredeploy.parameters.json
+  - deployment: DeployProduction
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureResourceGroupDeployment@2
+              displayName: 'Deploy Azure Resources'
+              inputs:
+                azureSubscription: 'Azure Sponsorship'
+                resourceGroupName: storage-production
+                location: 'West Europe'
+                csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
+                csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/prod.azuredeploy.parameters.json
