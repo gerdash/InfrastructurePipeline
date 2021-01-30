@@ -1,0 +1,32 @@
+pool:
+  name: Azure Pipelines
+
+
+stages:
+- stage: Development
+  displayName: Development
+  jobs:
+  - job: Release
+    steps:
+      - task: AzureResourceGroupDeployment@2
+        displayName: 'Deploy Azure Resources'
+        inputs:
+          azureSubscription: 'Azure Sponsorship'
+          resourceGroupName: storage-development
+          location: 'West Europe'
+          csmFile: Templates/azuredeploy.json
+          csmParametersFile: Parameters/dev-azuredeploy.parameters.json
+- stage: Production
+  displayName: Production
+  dependsOn: Development
+  jobs:
+  - job: Release
+    steps:
+      - task: AzureResourceGroupDeployment@2
+        displayName: 'Deploy Azure Resources'
+        inputs:
+          azureSubscription: 'Azure Sponsorship'
+          resourceGroupName: storage-production
+          location: 'West Europe'
+          csmFile: Templates/azuredeploy.json
+          csmParametersFile: Parameters/prod-azuredeploy.parameters.json
