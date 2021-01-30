@@ -1,4 +1,6 @@
-
+param(
+[string] $ResourceGroupName
+)
 
 BeforeAll {
     Install-Module -Name Az.Storage -Force -SkipPublisherCheck
