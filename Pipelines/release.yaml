@@ -19,8 +19,9 @@ stages:
 - stage: Production
   displayName: Production
   dependsOn: Development
-  jobs:
   environment: 'Production'
+  jobs:
+    
   - job: Release
     steps:
       - task: AzureResourceGroupDeployment@2
