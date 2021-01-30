@@ -15,7 +15,7 @@ stages:
           resourceGroupName: storage-development
           location: 'West Europe'
           csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
-          csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/dev-azuredeploy.parameters.json
+          csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/dev.azuredeploy.parameters.json
 - stage: Production
   displayName: Production
   dependsOn: Development
@@ -29,4 +29,4 @@ stages:
           resourceGroupName: storage-production
           location: 'West Europe'
           csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
-          csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/prod-azuredeploy.parameters.json
+          csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/prod.azuredeploy.parameters.json
