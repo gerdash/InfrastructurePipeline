@@ -14,8 +14,8 @@ stages:
           azureSubscription: 'Azure Sponsorship'
           resourceGroupName: storage-development
           location: 'West Europe'
-          csmFile: ../Templates/azuredeploy.json
-          csmParametersFile: ../Parameters/dev.azuredeploy.parameters.json
+          csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
+          csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/dev.azuredeploy.parameters.json
 - stage: Production
   displayName: Production
   dependsOn: Development
@@ -32,5 +32,5 @@ stages:
                 azureSubscription: 'Azure Sponsorship'
                 resourceGroupName: storage-production
                 location: 'West Europe'
-                csmFile: ..Templates/azuredeploy.json
-                csmParametersFile: ../Parameters/prod.azuredeploy.parameters.json
+                csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
+                csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/prod.azuredeploy.parameters.json
