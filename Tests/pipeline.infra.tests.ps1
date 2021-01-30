@@ -1,5 +1,5 @@
 param(
-[string] $ResourceGroupName
+[string] $resourceGroup
 )
 
 BeforeAll {
