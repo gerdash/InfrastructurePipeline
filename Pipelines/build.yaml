@@ -1,0 +1,99 @@
+pool:
+  name: Azure Pipelines
+  demands: azureps
+
+steps:
+- task: Sam-Cogan.ARMTTKExtension.RunARMTTKTests.RunARMTTKTests@1
+  displayName: 'Run Azure RM TTK Tests'
+  inputs:
+    templatelocation: '$(System.DefaultWorkingDirectory)\Templates'
+    resultLocation: '$(Agent.BuildDirectory)'
+
+- task: AzurePowerShell@5
+  displayName: 'Test Templates'
+  inputs:
+    azureSubscription: 'Azure Sponsorship'
+    ScriptType: InlineScript
+    Inline: |
+     # You can write your azure powershell scripts inline here. 
+     # You can also pass predefined and custom variables to this script using arguments
+     
+     Invoke-pester "$(System.DefaultWorkingDirectory)\Tests\*.unit.tests.ps1" -outputFile $(Agent.BuildDirectory)\Test-Template.XML -OutputFormat NUnitXml
+     
+    azurePowerShellVersion: LatestVersion
+    pwsh: true
+
+- task: AzureResourceGroupDeployment@2
+  displayName: 'Create Infrastructure for Tests'
+  inputs:
+    azureSubscription: 'Azure Sponsorship'
+    resourceGroupName: PipelineTest
+    location: 'West Europe'
+    csmFile: Templates/azuredeploy.json
+    csmParametersFile: Parameters/azuredeploy.parameters.json
+
+- task: AzurePowerShell@5
+  displayName: 'Test Infrastructure'
+  inputs:
+    azureSubscription: 'Azure Sponsorship'
+    ScriptType: InlineScript
+    Inline: |
+     
+     Import-Module Pester -Force
+     Get-Module -Name "Pester"
+     $configuration = [PesterConfiguration]::Default
+     $configuration.TestResult.Enabled = $true
+     $configuration.TestResult.OutputPath ="$(Agent.BuildDirectory)\Test-Infra.XML"
+     $container = New-PesterContainer -Path "$(System.DefaultWorkingDirectory)\Tests\*.infra.tests.ps1" -Data @{ resourceGroup="PipelineTest" }
+     $configuration.Run.Container = $container
+     $configuration.Run.PassThru = $true
+     $result =Invoke-Pester -Configuration $configuration
+     
+     exit $result.FailedCount
+     
+    azurePowerShellVersion: LatestVersion
+    pwsh: true
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/TEST-*.xml **/*-armttk.xml **/Test-Template.XML **/Test-Infra.XML'
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: |
+     **/TEST-*.xml
+     **/*-armttk.xml
+     **/Test-Template.XML
+     **/Test-Infra.XML
+    searchFolder: '$(Agent.BuildDirectory)'
+  condition: succeededOrFailed()
+
+- task: AzureResourceGroupDeployment@2
+  displayName: 'Delete Infrastructure'
+  inputs:
+    azureSubscription: 'Azure Sponsorship'
+    action: DeleteRG
+    resourceGroupName: PipelineTest
+  condition: always()
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    Contents: |
+     *\templates
+     *\parameters
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: ArchiveFiles@1
+  displayName: 'Archive files '
+  inputs:
+    rootFolder: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+
+- task: AzureFileCopy@1
+  displayName: ' File Copy'
+  inputs:
+    SourcePath: '$(Build.ArtifactStagingDirectory)'
+    azureSubscription: 'Azure Sponsorship'
+    Destination: AzureBlob
+    storage: buildartifacts8769
+    ContainerName: SingleVMDeployment
+

@@ -4,14 +4,14 @@ param(
 )
 
 BeforeAll {
-    Install-Module -Name Az.Storage -Force -SkipPublisherCheck
+    
 }
 
 Describe "Resource Group tests" -tag "AzureInfrastructure" {
     
     Context "Resource Groups" {
         It "Check Main Resource Group $resourceGroup Exists" {
-            Get-AzureRmResourceGroup -Name $resourceGroup -ErrorAction SilentlyContinue | Should -Not -be $null
+            Get-AzResourceGroup -Name $resourceGroup -ErrorAction SilentlyContinue | Should -Not -be $null
         }
    
     }
