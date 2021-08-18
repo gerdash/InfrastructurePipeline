@@ -11,7 +11,7 @@ stages:
       - task: AzureResourceGroupDeployment@2
         displayName: 'Deploy Azure Resources'
         inputs:
-          azureSubscription: 'Free Trial'
+          azureSubscription: 'Azure subscription 1 (d2bd1304-1d5f-4e0b-94aa-252d8cabf839)'
           resourceGroupName: storage-development
           location: 'West Europe'
           csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
@@ -30,7 +30,7 @@ stages:
             - task: AzureResourceGroupDeployment@2
               displayName: 'Deploy Azure Resources'
               inputs:
-                azureSubscription: 'Free Trial'
+                azureSubscription: 'Azure subscription 1 (d2bd1304-1d5f-4e0b-94aa-252d8cabf839)'
                 resourceGroupName: storage-production
                 location: 'West Europe'
                 csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
