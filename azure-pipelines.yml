@@ -1,0 +1,37 @@
+pool:
+  vmImage: 'windows-latest'
+
+trigger: none
+stages:
+- stage: Development
+  displayName: Development
+  jobs:
+  - job: Release
+    steps:
+      - task: AzureResourceGroupDeployment@2
+        displayName: 'Deploy Azure Resources'
+        inputs:
+          azureSubscription: 'Free Trial'
+          resourceGroupName: storage-development
+          location: 'West Europe'
+          csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
+          csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/dev.azuredeploy.parameters.json
+- stage: Production
+  displayName: Production
+  dependsOn: Development
+  jobs:
+  - deployment: DeployProduction
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - task: AzureResourceGroupDeployment@2
+              displayName: 'Deploy Azure Resources'
+              inputs:
+                azureSubscription: 'Free Trial'
+                resourceGroupName: storage-production
+                location: 'West Europe'
+                csmFile: $(System.DefaultWorkingDirectory)/Templates/azuredeploy.json
+                csmParametersFile: $(System.DefaultWorkingDirectory)/Parameters/prod.azuredeploy.parameters.json
